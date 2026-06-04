@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>주거복지 현장 사례집</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #1a5c3e;
+    --primary-light: #e8f4ee;
+    --accent: #2e8b57;
+    --text: #1a1a1a;
+    --text-muted: #6b7280;
+    --border: #e5e7eb;
+    --bg: #f9fafb;
+    --white: #ffffff;
+    --tag-bg: #f0fdf4;
+    --tag-color: #166534;
+    --radius: 8px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  header {
+    background: var(--primary);
+    color: white;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  header h1 { font-size: 18px; font-weight: 700; letter-spacing: -0.3px; }
+  header p { font-size: 13px; opacity: 0.75; margin-top: 2px; }
+  .header-btn {
+    background: white;
+    color: var(--primary);
+    border: none;
+    padding: 8px 18px;
+    border-radius: var(--radius);
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    white-space: nowrap;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .header-btn:hover { background: #f0fdf4; }
+  .container { max-width: 960px; margin: 0 auto; padding: 24px 16px; }
+  .filter-bar {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+    margin-bottom: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+  }
+  .search-wrap { position: relative; flex: 1; min-width: 180px; }
+  .search-wrap svg {
+    position: absolute; left: 10px; top: 50%;
+    transform: translateY(-50%); color: var(--text-muted);
+  }
+  .search-input {
+    width: 100%; padding: 8px 12px 8px 34px;
+    border: 1px solid var(--border); border-radius: var(--radius);
+    font-size: 14px; font-family: inherit; outline: none;
+  }
+  .search-input:focus { border-color: var(--accent); }
+  .type-filter { display: flex; flex-wrap: wrap; gap: 6px; }
+  .type-btn {
+    padding: 6px 12px; border: 1px solid var(--border);
+    border-radius: 20px; font-size: 13px; font-family: inherit;
+    background: white; cursor: pointer; color: var(--text-muted); transition: all 0.15s;
+  }
+  .type-btn.active, .type-btn:hover { background: var(--primary); color: white; border-color: var(--primary); }
+  .keyword-filter {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    width: 100%; padding-top: 4px; border-top: 1px solid var(--border);
+  }
+  .kw-btn {
+    padding: 4px 10px; border: 1px solid var(--border);
+    border-radius: 20px; font-size: 12px; font-family: inherit;
+    background: white; cursor: pointer; color: var(--text-muted); transition: all 0.15s;
+  }
+  .kw-btn.active, .kw-btn:hover { background: var(--tag-bg); color: var(--tag-color); border-color: var(--accent); }
+  .stats { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; }
+  .case-list { display: flex; flex-direction: column; gap: 10px; }
+  .case-card {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 16px; cursor: pointer;
+    transition: box-shadow 0.15s, border-color 0.15s;
+  }
+  .case-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.10); border-color: #d1d5db; }
+  .case-card-header {
+    display: flex; align-items: flex-start;
+    justify-content: space-between; gap: 12px; margin-bottom: 8px;
+  }
+  .case-title { font-size: 15px; font-weight: 700; flex: 1; }
+  .case-type {
+    font-size: 12px; padding: 3px 9px; border-radius: 20px;
+    background: var(--primary-light); color: var(--primary); font-weight: 500; white-space: nowrap;
+  }
+  .case-desc {
+    font-size: 13px; color: var(--text-muted); margin-bottom: 10px;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .case-keywords { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 8px; }
+  .kw-tag {
+    font-size: 12px; padding: 2px 8px; border-radius: 20px;
+    background: var(--tag-bg); color: var(--tag-color); border: 1px solid #bbf7d0;
+  }
+  .case-footer { font-size: 12px; color: var(--text-muted); display: flex; gap: 12px; }
+  .modal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.45); z-index: 100;
+    align-items: center; justify-content: center; padding: 16px;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: white; border-radius: 12px; max-width: 620px;
+    width: 100%; max-height: 90vh; overflow-y: auto; padding: 24px;
+  }
+  .modal-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
+  .modal-title { font-size: 17px; font-weight: 700; flex: 1; padding-right: 12px; }
+  .modal-close {
+    background: none; border: none; font-size: 22px;
+    cursor: pointer; color: var(--text-muted); line-height: 1; padding: 0; font-family: inherit;
+  }
+  .modal-section { margin-bottom: 16px; }
+  .modal-label { font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .modal-content { font-size: 14px; line-height: 1.7; }
+  .empty { text-align: center; padding: 48px 0; color: var(--text-muted); font-size: 15px; }
+  .loading { text-align: center; padding: 48px 0; color: var(--text-muted); }
+  @media (max-width: 600px) {
+    .case-card-header { flex-direction: column; gap: 6px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>주거복지 현장 사례집</h1>
+    <p>현장에서 쌓인 경험을 함께 나눕니다</p>
+  </div>
+  <a class="header-btn" href="https://docs.google.com/forms/d/e/1FAIpQLScXHYpTNYxvDHtnogjHFPVxcZ8wNiesP4WgkNAP6Vl4MhoWxQ/viewform" target="_blank">+ 사례 등록</a>
+</header>
+
+<div class="container">
+  <div class="filter-bar">
+    <div class="search-wrap">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input class="search-input" type="text" id="searchInput" placeholder="상황, 대응 방법 검색..." oninput="applyFilters()">
+    </div>
+    <div class="type-filter">
+      <button class="type-btn active" data-type="전체" onclick="selectType(this)">전체</button>
+      <button class="type-btn" data-type="새뜰" onclick="selectType(this)">새뜰</button>
+      <button class="type-btn" data-type="직접기탁" onclick="selectType(this)">직접기탁</button>
+      <button class="type-btn" data-type="모금회" onclick="selectType(this)">모금회</button>
+      <button class="type-btn" data-type="자체자금(캠페인)" onclick="selectType(this)">자체자금(캠페인)</button>
+      <button class="type-btn" data-type="자체자금(일반)" onclick="selectType(this)">자체자금(일반)</button>
+    </div>
+    <div class="keyword-filter">
+      <button class="kw-btn active" data-kw="전체" onclick="selectKeyword(this)">전체 키워드</button>
+      <button class="kw-btn" data-kw="자부담" onclick="selectKeyword(this)">자부담</button>
+      <button class="kw-btn" data-kw="공사품질" onclick="selectKeyword(this)">공사품질</button>
+      <button class="kw-btn" data-kw="업체와갈등" onclick="selectKeyword(this)">업체와갈등</button>
+      <button class="kw-btn" data-kw="자재스펙" onclick="selectKeyword(this)">자재스펙</button>
+    </div>
+  </div>
+
+  <p class="stats" id="statsText">불러오는 중...</p>
+  <div class="case-list" id="caseList">
+    <div class="loading">사례를 불러오는 중입니다...</div>
+  </div>
+</div>
+
+<!-- 상세 모달 -->
+<div class="modal-overlay" id="detailModal" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modalTitle"></div>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+  // 구글 시트 ID
+  const SHEET_ID = '1LYCjxad1iLGuXTd0ubGuabOVvpAFB6syLXIygACro-4';
+  const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`;
+
+  let allCases = [];
+  let activeType = '전체';
+  let activeKeyword = '전체';
+
+  async function loadCases() {
+    try {
+      const res = await fetch(SHEET_URL);
+      const text = await res.text();
+      const json = JSON.parse(text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*?)\);/)[1]);
+      const rows = json.table.rows;
+      const cols = json.table.cols;
+
+      allCases = rows.map(row => {
+        const obj = {};
+        cols.forEach((col, i) => {
+          const val = row.c[i];
+          obj[col.label] = val ? (val.f || val.v || '') : '';
+        });
+        return obj;
+      }).filter(r => r['사례 제목']).reverse();
+
+      applyFilters();
+    } catch(e) {
+      document.getElementById('caseList').innerHTML = '<div class="empty">⚠️ 데이터를 불러올 수 없습니다.<br>잠시 후 다시 시도해주세요.</div>';
+      document.getElementById('statsText').textContent = '';
+    }
+  }
+
+  function applyFilters() {
+    const q = document.getElementById('searchInput').value.trim().toLowerCase();
+    let filtered = allCases.filter(c => {
+      const type = c['사례 유형'] || '';
+      const kws = c['키워드'] || '';
+      const typeMatch = activeType === '전체' || type === activeType;
+      const kwMatch = activeKeyword === '전체' || kws.includes(activeKeyword);
+      const textMatch = !q ||
+        (c['사례 제목']||'').toLowerCase().includes(q) ||
+        (c['상황 설명']||'').toLowerCase().includes(q) ||
+        (c['대응 방법']||'').toLowerCase().includes(q) ||
+        kws.toLowerCase().includes(q);
+      return typeMatch && kwMatch && textMatch;
+    });
+    renderList(filtered);
+    document.getElementById('statsText').textContent = `전체 ${allCases.length}건 중 ${filtered.length}건 표시`;
+  }
+
+  function renderList(cases) {
+    const el = document.getElementById('caseList');
+    if (cases.length === 0) {
+      el.innerHTML = '<div class="empty">조건에 맞는 사례가 없습니다.</div>';
+      return;
+    }
+    el.innerHTML = cases.map(c => {
+      const kws = (c['키워드']||'').split(',').map(k=>k.trim()).filter(Boolean);
+      const idx = allCases.indexOf(c);
+      return `<div class="case-card" onclick="openDetail(${idx})">
+        <div class="case-card-header">
+          <div class="case-title">${escHtml(c['사례 제목']||'')}</div>
+          <span class="case-type">${escHtml(c['사례 유형']||'')}</span>
+        </div>
+        <div class="case-desc">${escHtml(c['상황 설명']||'')}</div>
+        ${kws.length ? `<div class="case-keywords">${kws.map(k=>`<span class="kw-tag">${escHtml(k)}</span>`).join('')}</div>` : ''}
+        <div class="case-footer">
+          <span>${escHtml(c['작성자']||'익명')}</span>
+          <span>${escHtml(c['타임스탬프']||'')}</span>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  function openDetail(idx) {
+    const c = allCases[idx];
+    if (!c) return;
+    const kws = (c['키워드']||'').split(',').map(k=>k.trim()).filter(Boolean);
+    document.getElementById('modalTitle').textContent = c['사례 제목'] || '';
+    document.getElementById('modalBody').innerHTML = `
+      <div class="modal-section">
+        <div class="modal-label">사례 유형</div>
+        <span class="case-type">${escHtml(c['사례 유형']||'')}</span>
+      </div>
+      ${kws.length ? `<div class="modal-section">
+        <div class="modal-label">키워드</div>
+        <div class="case-keywords">${kws.map(k=>`<span class="kw-tag">${escHtml(k)}</span>`).join('')}</div>
+      </div>` : ''}
+      <div class="modal-section">
+        <div class="modal-label">상황 설명</div>
+        <div class="modal-content">${escHtml(c['상황 설명']||'').replace(/\n/g,'<br>')}</div>
+      </div>
+      ${c['대응 방법'] ? `<div class="modal-section">
+        <div class="modal-label">대응 방법</div>
+        <div class="modal-content">${escHtml(c['대응 방법']).replace(/\n/g,'<br>')}</div>
+      </div>` : ''}
+      ${c['결과'] ? `<div class="modal-section">
+        <div class="modal-label">결과</div>
+        <div class="modal-content">${escHtml(c['결과'])}</div>
+      </div>` : ''}
+      <div class="modal-section" style="border-top:1px solid var(--border);padding-top:12px;margin-top:8px">
+        <span style="font-size:13px;color:var(--text-muted)">${escHtml(c['작성자']||'익명')} · ${escHtml(c['타임스탬프']||'')}</span>
+      </div>`;
+    document.getElementById('detailModal').classList.add('open');
+  }
+
+  function closeModal() { document.getElementById('detailModal').classList.remove('open'); }
+  function closeModalOutside(e) { if (e.target.id === 'detailModal') closeModal(); }
+
+  function selectType(btn) {
+    document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeType = btn.dataset.type;
+    applyFilters();
+  }
+  function selectKeyword(btn) {
+    document.querySelectorAll('.kw-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeKeyword = btn.dataset.kw;
+    applyFilters();
+  }
+
+  function escHtml(s) {
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  loadCases();
+</script>
+</body>
+</html>
