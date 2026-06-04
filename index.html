@@ -18,7 +18,6 @@
     --tag-bg: #f0fdf4;
     --tag-color: #166534;
     --radius: 8px;
-    --shadow: 0 1px 3px rgba(0,0,0,0.08);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
@@ -51,12 +50,11 @@
     cursor: pointer;
     font-family: inherit;
     white-space: nowrap;
+    text-decoration: none;
+    display: inline-block;
   }
   .header-btn:hover { background: #f0fdf4; }
-
   .container { max-width: 960px; margin: 0 auto; padding: 24px 16px; }
-
-  /* 검색/필터 영역 */
   .filter-bar {
     background: var(--white);
     border: 1px solid var(--border);
@@ -68,258 +66,83 @@
     gap: 10px;
     align-items: center;
   }
-  .search-wrap {
-    position: relative;
-    flex: 1;
-    min-width: 180px;
-  }
+  .search-wrap { position: relative; flex: 1; min-width: 180px; }
   .search-wrap svg {
-    position: absolute;
-    left: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--text-muted);
+    position: absolute; left: 10px; top: 50%;
+    transform: translateY(-50%); color: var(--text-muted);
   }
   .search-input {
-    width: 100%;
-    padding: 8px 12px 8px 34px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    font-size: 14px;
-    font-family: inherit;
-    outline: none;
+    width: 100%; padding: 8px 12px 8px 34px;
+    border: 1px solid var(--border); border-radius: var(--radius);
+    font-size: 14px; font-family: inherit; outline: none;
   }
   .search-input:focus { border-color: var(--accent); }
-  .type-filter {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-  }
+  .type-filter { display: flex; flex-wrap: wrap; gap: 6px; }
   .type-btn {
-    padding: 6px 12px;
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    font-size: 13px;
-    font-family: inherit;
-    background: white;
-    cursor: pointer;
-    color: var(--text-muted);
-    transition: all 0.15s;
+    padding: 6px 12px; border: 1px solid var(--border);
+    border-radius: 20px; font-size: 13px; font-family: inherit;
+    background: white; cursor: pointer; color: var(--text-muted); transition: all 0.15s;
   }
-  .type-btn.active, .type-btn:hover {
-    background: var(--primary);
-    color: white;
-    border-color: var(--primary);
-  }
+  .type-btn.active, .type-btn:hover { background: var(--primary); color: white; border-color: var(--primary); }
   .keyword-filter {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    width: 100%;
-    padding-top: 4px;
-    border-top: 1px solid var(--border);
+    display: flex; flex-wrap: wrap; gap: 6px;
+    width: 100%; padding-top: 4px; border-top: 1px solid var(--border);
   }
   .kw-btn {
-    padding: 4px 10px;
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    font-size: 12px;
-    font-family: inherit;
-    background: white;
-    cursor: pointer;
-    color: var(--text-muted);
-    transition: all 0.15s;
+    padding: 4px 10px; border: 1px solid var(--border);
+    border-radius: 20px; font-size: 12px; font-family: inherit;
+    background: white; cursor: pointer; color: var(--text-muted); transition: all 0.15s;
   }
-  .kw-btn.active, .kw-btn:hover {
-    background: var(--tag-bg);
-    color: var(--tag-color);
-    border-color: var(--accent);
-  }
-
-  /* 사례 목록 */
+  .kw-btn.active, .kw-btn:hover { background: var(--tag-bg); color: var(--tag-color); border-color: var(--accent); }
   .stats { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; }
   .case-list { display: flex; flex-direction: column; gap: 10px; }
   .case-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 16px;
-    cursor: pointer;
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 16px; cursor: pointer;
     transition: box-shadow 0.15s, border-color 0.15s;
   }
   .case-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.10); border-color: #d1d5db; }
   .case-card-header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 12px;
-    margin-bottom: 8px;
+    display: flex; align-items: flex-start;
+    justify-content: space-between; gap: 12px; margin-bottom: 8px;
   }
   .case-title { font-size: 15px; font-weight: 700; flex: 1; }
   .case-type {
-    font-size: 12px;
-    padding: 3px 9px;
-    border-radius: 20px;
-    background: var(--primary-light);
-    color: var(--primary);
-    font-weight: 500;
-    white-space: nowrap;
+    font-size: 12px; padding: 3px 9px; border-radius: 20px;
+    background: var(--primary-light); color: var(--primary); font-weight: 500; white-space: nowrap;
   }
-  .case-desc { font-size: 13px; color: var(--text-muted); margin-bottom: 10px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .case-desc {
+    font-size: 13px; color: var(--text-muted); margin-bottom: 10px;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  }
   .case-keywords { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 8px; }
   .kw-tag {
-    font-size: 12px;
-    padding: 2px 8px;
-    border-radius: 20px;
-    background: var(--tag-bg);
-    color: var(--tag-color);
-    border: 1px solid #bbf7d0;
+    font-size: 12px; padding: 2px 8px; border-radius: 20px;
+    background: var(--tag-bg); color: var(--tag-color); border: 1px solid #bbf7d0;
   }
   .case-footer { font-size: 12px; color: var(--text-muted); display: flex; gap: 12px; }
-
-  /* 상세 모달 */
   .modal-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.45);
-    z-index: 100;
-    align-items: center;
-    justify-content: center;
-    padding: 16px;
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.45); z-index: 100;
+    align-items: center; justify-content: center; padding: 16px;
   }
   .modal-overlay.open { display: flex; }
   .modal {
-    background: white;
-    border-radius: 12px;
-    max-width: 620px;
-    width: 100%;
-    max-height: 90vh;
-    overflow-y: auto;
-    padding: 24px;
+    background: white; border-radius: 12px; max-width: 620px;
+    width: 100%; max-height: 90vh; overflow-y: auto; padding: 24px;
   }
   .modal-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
   .modal-title { font-size: 17px; font-weight: 700; flex: 1; padding-right: 12px; }
   .modal-close {
-    background: none;
-    border: none;
-    font-size: 22px;
-    cursor: pointer;
-    color: var(--text-muted);
-    line-height: 1;
-    padding: 0;
-    font-family: inherit;
+    background: none; border: none; font-size: 22px;
+    cursor: pointer; color: var(--text-muted); line-height: 1; padding: 0; font-family: inherit;
   }
   .modal-section { margin-bottom: 16px; }
   .modal-label { font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
   .modal-content { font-size: 14px; line-height: 1.7; }
-
-  /* 입력 폼 */
-  .form-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.45);
-    z-index: 100;
-    align-items: flex-start;
-    justify-content: center;
-    padding: 16px;
-    overflow-y: auto;
-  }
-  .form-overlay.open { display: flex; }
-  .form-modal {
-    background: white;
-    border-radius: 12px;
-    max-width: 560px;
-    width: 100%;
-    padding: 24px;
-    margin: auto;
-  }
-  .form-modal h2 { font-size: 17px; font-weight: 700; margin-bottom: 20px; }
-  .form-group { margin-bottom: 16px; }
-  .form-group label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px; }
-  .form-group select,
-  .form-group input[type="text"],
-  .form-group textarea {
-    width: 100%;
-    padding: 9px 12px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    font-size: 14px;
-    font-family: inherit;
-    outline: none;
-  }
-  .form-group select:focus,
-  .form-group input:focus,
-  .form-group textarea:focus { border-color: var(--accent); }
-  .form-group textarea { resize: vertical; min-height: 90px; }
-  .checkbox-group { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
-  .checkbox-item {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    padding: 5px 10px;
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 13px;
-    transition: all 0.15s;
-    user-select: none;
-  }
-  .checkbox-item:has(input:checked) {
-    background: var(--tag-bg);
-    border-color: var(--accent);
-    color: var(--tag-color);
-  }
-  .checkbox-item input { display: none; }
-  .form-row { display: flex; gap: 10px; }
-  .form-actions { display: flex; gap: 10px; margin-top: 20px; }
-  .btn-submit {
-    flex: 1;
-    background: var(--primary);
-    color: white;
-    border: none;
-    padding: 11px;
-    border-radius: var(--radius);
-    font-size: 15px;
-    font-weight: 700;
-    cursor: pointer;
-    font-family: inherit;
-  }
-  .btn-submit:hover { background: var(--accent); }
-  .btn-cancel {
-    padding: 11px 20px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    font-size: 14px;
-    background: white;
-    cursor: pointer;
-    font-family: inherit;
-    color: var(--text-muted);
-  }
-
   .empty { text-align: center; padding: 48px 0; color: var(--text-muted); font-size: 15px; }
   .loading { text-align: center; padding: 48px 0; color: var(--text-muted); }
-
-  .toast {
-    position: fixed;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #1a1a1a;
-    color: white;
-    padding: 10px 20px;
-    border-radius: var(--radius);
-    font-size: 14px;
-    z-index: 200;
-    opacity: 0;
-    transition: opacity 0.3s;
-    pointer-events: none;
-  }
-  .toast.show { opacity: 1; }
-
   @media (max-width: 600px) {
-    .form-row { flex-direction: column; }
     .case-card-header { flex-direction: column; gap: 6px; }
   }
 </style>
@@ -331,7 +154,7 @@
     <h1>주거복지 현장 사례집</h1>
     <p>현장에서 쌓인 경험을 함께 나눕니다</p>
   </div>
-  <button class="header-btn" onclick="openForm()">+ 사례 등록</button>
+  <a class="header-btn" href="https://docs.google.com/forms/d/e/1FAIpQLScXHYpTNYxvDHtnogjHFPVxcZ8wNiesP4WgkNAP6Vl4MhoWxQ/viewform" target="_blank">+ 사례 등록</a>
 </header>
 
 <div class="container">
@@ -348,7 +171,7 @@
       <button class="type-btn" data-type="자체자금(캠페인)" onclick="selectType(this)">자체자금(캠페인)</button>
       <button class="type-btn" data-type="자체자금(일반)" onclick="selectType(this)">자체자금(일반)</button>
     </div>
-    <div class="keyword-filter" id="keywordFilter">
+    <div class="keyword-filter">
       <button class="kw-btn active" data-kw="전체" onclick="selectKeyword(this)">전체 키워드</button>
       <button class="kw-btn" data-kw="자부담" onclick="selectKeyword(this)">자부담</button>
       <button class="kw-btn" data-kw="공사품질" onclick="selectKeyword(this)">공사품질</button>
@@ -374,63 +197,10 @@
   </div>
 </div>
 
-<!-- 입력 폼 -->
-<div class="form-overlay" id="formOverlay" onclick="closeFormOutside(event)">
-  <div class="form-modal">
-    <h2>사례 등록</h2>
-    <div class="form-group">
-      <label>사례 제목 <span style="color:#e24b4a">*</span></label>
-      <input type="text" id="f_title" placeholder="예: 계단 손잡이 설치 중 자부담 갈등">
-    </div>
-    <div class="form-group">
-      <label>사례 유형 <span style="color:#e24b4a">*</span></label>
-      <select id="f_type">
-        <option value="">선택하세요</option>
-        <option>새뜰</option>
-        <option>직접기탁</option>
-        <option>모금회</option>
-        <option>자체자금(캠페인)</option>
-        <option>자체자금(일반)</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label>키워드 (해당 항목 선택, 중복 가능)</label>
-      <div class="checkbox-group">
-        <label class="checkbox-item"><input type="checkbox" value="자부담"> 자부담</label>
-        <label class="checkbox-item"><input type="checkbox" value="공사품질"> 공사품질</label>
-        <label class="checkbox-item"><input type="checkbox" value="업체와갈등"> 업체와갈등</label>
-        <label class="checkbox-item"><input type="checkbox" value="자재스펙"> 자재스펙</label>
-      </div>
-      <input type="text" id="f_kwExtra" placeholder="추가 키워드 (쉼표로 구분, 예: 긴급, 독거노인)">
-    </div>
-    <div class="form-group">
-      <label>상황 설명 <span style="color:#e24b4a">*</span></label>
-      <textarea id="f_situation" placeholder="현장에서 어떤 상황이 있었나요?"></textarea>
-    </div>
-    <div class="form-group">
-      <label>대응 방법</label>
-      <textarea id="f_response" placeholder="어떻게 대응하거나 해결했나요?"></textarea>
-    </div>
-    <div class="form-group">
-      <label>결과</label>
-      <input type="text" id="f_result" placeholder="예: 합의 후 공사 완료, 업체 교체 등">
-    </div>
-    <div class="form-group">
-      <label>작성자</label>
-      <input type="text" id="f_author" placeholder="이름 또는 익명">
-    </div>
-    <div class="form-actions">
-      <button class="btn-cancel" onclick="closeForm()">취소</button>
-      <button class="btn-submit" onclick="submitCase()">등록하기</button>
-    </div>
-  </div>
-</div>
-
-<div class="toast" id="toast"></div>
-
 <script>
-  // ★ 여기에 구글 Apps Script 웹앱 URL을 붙여넣으세요
-  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzpQrJZK2eRds-JfHPgujZf8elmJfIkqTnpWHmjWOOc81UXgwCLgSzOSw_A37dT6KVs/exec';
+  // 구글 시트 ID
+  const SHEET_ID = '1LYCjxad1iLGuXTd0ubGuabOVvpAFB6syLXIygACro-4';
+  const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`;
 
   let allCases = [];
   let activeType = '전체';
@@ -438,12 +208,24 @@
 
   async function loadCases() {
     try {
-      const res = await fetch(SCRIPT_URL + '?action=get');
-      const data = await res.json();
-      allCases = data.reverse();
+      const res = await fetch(SHEET_URL);
+      const text = await res.text();
+      const json = JSON.parse(text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*?)\);/)[1]);
+      const rows = json.table.rows;
+      const cols = json.table.cols;
+
+      allCases = rows.map(row => {
+        const obj = {};
+        cols.forEach((col, i) => {
+          const val = row.c[i];
+          obj[col.label] = val ? (val.f || val.v || '') : '';
+        });
+        return obj;
+      }).filter(r => r['사례 제목']).reverse();
+
       applyFilters();
     } catch(e) {
-      document.getElementById('caseList').innerHTML = '<div class="empty">⚠️ 데이터를 불러올 수 없습니다.<br>구글 시트 연동 설정을 확인해주세요.</div>';
+      document.getElementById('caseList').innerHTML = '<div class="empty">⚠️ 데이터를 불러올 수 없습니다.<br>잠시 후 다시 시도해주세요.</div>';
       document.getElementById('statsText').textContent = '';
     }
   }
@@ -451,9 +233,15 @@
   function applyFilters() {
     const q = document.getElementById('searchInput').value.trim().toLowerCase();
     let filtered = allCases.filter(c => {
-      const typeMatch = activeType === '전체' || c.type === activeType;
-      const kwMatch = activeKeyword === '전체' || (c.keywords || '').includes(activeKeyword);
-      const textMatch = !q || (c.title||'').toLowerCase().includes(q) || (c.situation||'').toLowerCase().includes(q) || (c.response||'').toLowerCase().includes(q) || (c.keywords||'').toLowerCase().includes(q);
+      const type = c['사례 유형'] || '';
+      const kws = c['키워드'] || '';
+      const typeMatch = activeType === '전체' || type === activeType;
+      const kwMatch = activeKeyword === '전체' || kws.includes(activeKeyword);
+      const textMatch = !q ||
+        (c['사례 제목']||'').toLowerCase().includes(q) ||
+        (c['상황 설명']||'').toLowerCase().includes(q) ||
+        (c['대응 방법']||'').toLowerCase().includes(q) ||
+        kws.toLowerCase().includes(q);
       return typeMatch && kwMatch && textMatch;
     });
     renderList(filtered);
@@ -466,18 +254,19 @@
       el.innerHTML = '<div class="empty">조건에 맞는 사례가 없습니다.</div>';
       return;
     }
-    el.innerHTML = cases.map((c, i) => {
-      const kws = (c.keywords||'').split(',').map(k=>k.trim()).filter(Boolean);
-      return `<div class="case-card" onclick="openDetail(${allCases.indexOf(c)})">
+    el.innerHTML = cases.map(c => {
+      const kws = (c['키워드']||'').split(',').map(k=>k.trim()).filter(Boolean);
+      const idx = allCases.indexOf(c);
+      return `<div class="case-card" onclick="openDetail(${idx})">
         <div class="case-card-header">
-          <div class="case-title">${escHtml(c.title||'제목 없음')}</div>
-          <span class="case-type">${escHtml(c.type||'')}</span>
+          <div class="case-title">${escHtml(c['사례 제목']||'')}</div>
+          <span class="case-type">${escHtml(c['사례 유형']||'')}</span>
         </div>
-        <div class="case-desc">${escHtml(c.situation||'')}</div>
+        <div class="case-desc">${escHtml(c['상황 설명']||'')}</div>
         ${kws.length ? `<div class="case-keywords">${kws.map(k=>`<span class="kw-tag">${escHtml(k)}</span>`).join('')}</div>` : ''}
         <div class="case-footer">
-          <span>${escHtml(c.author||'익명')}</span>
-          <span>${escHtml(c.date||'')}</span>
+          <span>${escHtml(c['작성자']||'익명')}</span>
+          <span>${escHtml(c['타임스탬프']||'')}</span>
         </div>
       </div>`;
     }).join('');
@@ -486,12 +275,12 @@
   function openDetail(idx) {
     const c = allCases[idx];
     if (!c) return;
-    const kws = (c.keywords||'').split(',').map(k=>k.trim()).filter(Boolean);
-    document.getElementById('modalTitle').textContent = c.title || '제목 없음';
+    const kws = (c['키워드']||'').split(',').map(k=>k.trim()).filter(Boolean);
+    document.getElementById('modalTitle').textContent = c['사례 제목'] || '';
     document.getElementById('modalBody').innerHTML = `
       <div class="modal-section">
         <div class="modal-label">사례 유형</div>
-        <span class="case-type">${escHtml(c.type||'')}</span>
+        <span class="case-type">${escHtml(c['사례 유형']||'')}</span>
       </div>
       ${kws.length ? `<div class="modal-section">
         <div class="modal-label">키워드</div>
@@ -499,78 +288,24 @@
       </div>` : ''}
       <div class="modal-section">
         <div class="modal-label">상황 설명</div>
-        <div class="modal-content">${escHtml(c.situation||'').replace(/\n/g,'<br>')}</div>
+        <div class="modal-content">${escHtml(c['상황 설명']||'').replace(/\n/g,'<br>')}</div>
       </div>
-      ${c.response ? `<div class="modal-section">
+      ${c['대응 방법'] ? `<div class="modal-section">
         <div class="modal-label">대응 방법</div>
-        <div class="modal-content">${escHtml(c.response).replace(/\n/g,'<br>')}</div>
+        <div class="modal-content">${escHtml(c['대응 방법']).replace(/\n/g,'<br>')}</div>
       </div>` : ''}
-      ${c.result ? `<div class="modal-section">
+      ${c['결과'] ? `<div class="modal-section">
         <div class="modal-label">결과</div>
-        <div class="modal-content">${escHtml(c.result)}</div>
+        <div class="modal-content">${escHtml(c['결과'])}</div>
       </div>` : ''}
       <div class="modal-section" style="border-top:1px solid var(--border);padding-top:12px;margin-top:8px">
-        <span style="font-size:13px;color:var(--text-muted)">${escHtml(c.author||'익명')} · ${escHtml(c.date||'')}</span>
+        <span style="font-size:13px;color:var(--text-muted)">${escHtml(c['작성자']||'익명')} · ${escHtml(c['타임스탬프']||'')}</span>
       </div>`;
     document.getElementById('detailModal').classList.add('open');
   }
+
   function closeModal() { document.getElementById('detailModal').classList.remove('open'); }
   function closeModalOutside(e) { if (e.target.id === 'detailModal') closeModal(); }
-
-  function openForm() { document.getElementById('formOverlay').classList.add('open'); }
-  function closeForm() { document.getElementById('formOverlay').classList.remove('open'); }
-  function closeFormOutside(e) { if (e.target.id === 'formOverlay') closeForm(); }
-
-  async function submitCase() {
-    const title = document.getElementById('f_title').value.trim();
-    const type = document.getElementById('f_type').value;
-    const situation = document.getElementById('f_situation').value.trim();
-    if (!title || !type || !situation) { showToast('제목, 유형, 상황 설명은 필수입니다.'); return; }
-
-    const checked = [...document.querySelectorAll('.checkbox-item input:checked')].map(el=>el.value);
-    const extra = document.getElementById('f_kwExtra').value.split(',').map(k=>k.trim()).filter(Boolean);
-    const keywords = [...checked, ...extra].join(', ');
-
-    const payload = {
-      title,
-      type,
-      keywords,
-      situation,
-      response: document.getElementById('f_response').value.trim(),
-      result: document.getElementById('f_result').value.trim(),
-      author: document.getElementById('f_author').value.trim() || '익명',
-      date: new Date().toLocaleDateString('ko-KR')
-    };
-
-    const btn = document.querySelector('.btn-submit');
-    btn.textContent = '등록 중...';
-    btn.disabled = true;
-
-    try {
-      await fetch(SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(payload)
-      });
-      allCases.unshift(payload);
-      applyFilters();
-      closeForm();
-      resetForm();
-      showToast('사례가 등록되었습니다!');
-    } catch(e) {
-      showToast('등록 중 오류가 발생했습니다.');
-    } finally {
-      btn.textContent = '등록하기';
-      btn.disabled = false;
-    }
-  }
-
-  function resetForm() {
-    ['f_title','f_situation','f_response','f_result','f_author','f_kwExtra'].forEach(id => document.getElementById(id).value = '');
-    document.getElementById('f_type').value = '';
-    document.querySelectorAll('.checkbox-item input').forEach(el => el.checked = false);
-  }
 
   function selectType(btn) {
     document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
@@ -583,13 +318,6 @@
     btn.classList.add('active');
     activeKeyword = btn.dataset.kw;
     applyFilters();
-  }
-
-  function showToast(msg) {
-    const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 2500);
   }
 
   function escHtml(s) {
